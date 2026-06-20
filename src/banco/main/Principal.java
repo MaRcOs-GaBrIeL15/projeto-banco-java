@@ -1,5 +1,6 @@
 package banco.main;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,6 +8,8 @@ import java.util.Scanner;
 import banco.clientes.Cliente;
 import banco.clientes.PessoaFisica;
 import banco.contas.Conta;
+import banco.contas.ContaEspecial;
+import banco.contas.ContaPoupanca;
 
 public class Principal {
 
@@ -105,17 +108,49 @@ public class Principal {
 	private static void criarConta(Cliente cliente) {
 
 		System.out.println("\n=== CRIACAO DE CONTA ===");
-		Long numero = (long) cliente.getContas().size();
+
+		System.out.println("Escolha o tipo de conta:");
+		System.out.println("1 - Conta Corrente");
+		System.out.println("2 - Conta Especial");
+		System.out.println("3 - Conta Poupanca");
+
+		int tipoConta = teclado.nextInt();
+		teclado.nextLine();
 
 		System.out.println("Senha:");
 		String senha = teclado.nextLine();
 
 		System.out.println("Saldo inicial:");
 		double saldo = teclado.nextDouble();
-
 		teclado.nextLine();
 
-		Conta conta = new Conta(numero, "ATIVA", senha, saldo);
+		Long numero = (long) (cliente.getContas().size() + 1);
+
+		Conta conta;
+
+		switch (tipoConta) {
+
+		case 1:
+			conta = new Conta(numero, "ATIVA", senha, saldo);
+			break;
+
+		case 2:
+			conta = new ContaEspecial(numero, "ATIVA", senha, saldo);
+			break;
+
+		case 3:
+			System.out.println("Data de aniversario da poupanca (AAAA-MM-DD):");
+			String data = teclado.nextLine();
+
+			LocalDate dataAniversario = LocalDate.parse(data);
+
+			conta = new ContaPoupanca(numero, "ATIVA", senha, saldo, dataAniversario);
+			break;
+
+		default:
+			System.out.println("Tipo de conta invalido.");
+			return;
+		}
 
 		cliente.adicionarConta(conta);
 
