@@ -14,7 +14,7 @@ public abstract class Cliente {
 	private double renda;
 	private String situacao;
 	private List<Conta> contas;
-	
+
 	public Cliente(String nome, String endereco, String cep, String telefone, double renda, String situacao,
 			List<Conta> contas) {
 		super();
@@ -24,7 +24,7 @@ public abstract class Cliente {
 		this.telefone = telefone;
 		this.renda = renda;
 		this.situacao = situacao;
-				this.contas = new LinkedList<>(contas);
+		this.contas = new LinkedList<>(contas);
 	}
 
 	public Cliente(String nome, String endereco, String cep, String telefone, double renda, String situacao,
@@ -91,11 +91,11 @@ public abstract class Cliente {
 	public void adicionarConta(Conta conta) {
 		this.contas.add(conta);
 	}
-	
+
 	public Conta getConta(int index) {
 		return this.contas.get(index);
 	}
-	
+
 	public List<Conta> getContas() {
 		return new LinkedList<>(contas);
 	}
@@ -106,4 +106,3 @@ public abstract class Cliente {
 				+ ", renda=" + renda + ", situacao=" + situacao + ", contas=" + contas + "}";
 	}
 }
-	

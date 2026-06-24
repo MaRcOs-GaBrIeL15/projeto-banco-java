@@ -7,7 +7,7 @@ import java.util.List;
 import banco.movimentos.Movimento;
 
 public class Conta {
-	
+
 	private final Long numero;
 	private final LocalDate dataAbertura;
 	private LocalDate dataEncerramento;
@@ -15,7 +15,7 @@ public class Conta {
 	private String senha;
 	private double saldo;
 	private List<Movimento> movimentos;
-	
+
 	public Conta(Long numero, String situacao, String senha, double saldo) {
 		super();
 		this.numero = numero;
@@ -64,45 +64,44 @@ public class Conta {
 
 	protected void validaValor(double valor) {
 		if (valor <= 0) {
-	        throw new IllegalArgumentException("O valor deve ser maior que zero.");
-	    }
+			throw new IllegalArgumentException("O valor deve ser maior que zero.");
+		}
 	}
-	
-	public void depositar(double valor){
+
+	public void depositar(double valor) {
 		validaValor(valor);
-		
+
 		this.saldo += valor;
 		adicionarMovimento(new Movimento(1, valor));
 	}
-	
+
 	protected void removerSaldo(double valor) {
 		this.saldo -= valor;
 	}
 
 	public void sacar(double valor) {
-	    validaValor(valor);
+		validaValor(valor);
 
-	    if (this.saldo < valor) {
-	        throw new IllegalArgumentException("Saldo insuficiente para realizar o saque.");
-	    }
+		if (this.saldo < valor) {
+			throw new IllegalArgumentException("Saldo insuficiente para realizar o saque.");
+		}
 
-	    adicionarMovimento(new Movimento(0, valor));
-	    removerSaldo(valor);
+		adicionarMovimento(new Movimento(0, valor));
+		removerSaldo(valor);
 	}
-	
+
 	public void adicionarMovimento(Movimento movimento) {
 		this.movimentos.add(movimento);
 	}
-	
-	public Movimento getMovimento (int index) {
+
+	public Movimento getMovimento(int index) {
 		return this.movimentos.get(index);
 	}
 
-	
-	public List<Movimento> getMovimentos(){
+	public List<Movimento> getMovimentos() {
 		return new LinkedList<>(movimentos);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Conta: {numero=" + numero + ", dataAbertura=" + dataAbertura + ", dataEncerramento=" + dataEncerramento
